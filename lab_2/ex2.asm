@@ -1,5 +1,6 @@
 .data
 	msg: .asciiz "Digite a qtd de termos: "  # Mensagem para solicitar entrada do usuário
+	erro: .asciiz "Entrada invalida. Digite um numero maior que zero.\n" 
 	virgula: .asciiz ", "                   # String contendo uma vírgula e espaço
 	nova_linha: .asciiz "\n"                 # Quebra de linha
 
@@ -14,6 +15,8 @@ main:
 	li $v0, 5
 	syscall 
 	move $a0, $v0  # Move o valor lido para $a0 (argumento da função)
+	
+	blez $a0, erro_entrada
 
 	# Chama a função fibonacci
 	jal fibonacci
@@ -21,6 +24,15 @@ main:
 	# Encerra o programa
 	li $v0, 10
 	syscall
+	
+erro_entrada:
+	# Exibe a mensagem de erro
+	li $v0, 4
+	la $a0, erro
+	syscall
+
+	# Volta a solicitar entrada
+	j main
 	
 fibonacci:
 	# Inicializa os primeiros termos da sequência de Fibonacci
