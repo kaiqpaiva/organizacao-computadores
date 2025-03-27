@@ -62,6 +62,8 @@ main:
 	beq $t0, $t3, multiplicacao
 	beq $t0, $t4, divisao
 	beq $t0, $t5, sair	
+
+	j main
 	
 soma: 
 	# Exibe a mensagem pedindo o primeiro número
